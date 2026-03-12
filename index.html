@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BG Quality Honey — Преработка и износ на пчелен мед</title>
+    <meta name="description" content="БГ Куолити Хъни — водеща компания в износа на пчелен мед в България. Собствена фабрика, 1000 пчелни семейства, органично сертифицирана.">
+    <meta property="og:title" content="BG Quality Honey">
+    <meta property="og:description" content="Компания за преработка и износ на пчелен мед и пчелни продукти">
+    <meta property="og:image" content="images/logo.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="images/logo.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #D4A017;
+            --gold-dark: #C8860A;
+            --green-dark: #1B4332;
+            --green: #2D6A4F;
+            --cream: #FFF8E7;
+            --white: #FFFFFF;
+            --dark: #1A1A1A;
+            --gray: #6B7280;
+            --gray-light: #F3F4F6;
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            color: var(--dark);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+            transition: box-shadow 0.3s;
+        }
+        .header.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+        }
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--dark);
+        }
+        .logo img {
+            height: 45px;
+            width: auto;
+        }
+        .logo span {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--green-dark);
+        }
+
+        /* Nav */
+        .nav { display: flex; align-items: center; gap: 8px; }
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-links a:hover {
+            background: var(--cream);
+            color: var(--gold-dark);
+        }
+
+        /* Lang Switch */
+        .lang-switch {
+            display: flex;
+            background: var(--gray-light);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-left: 12px;
+        }
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: var(--font-body);
+            color: var(--gray);
+            transition: all 0.2s;
+        }
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--white);
+            border-radius: 6px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 999;
+            padding: 20px;
+        }
+        .mobile-nav.open { display: flex; flex-direction: column; }
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--gray-light);
+            display: block;
+        }
+        .mobile-nav a:hover { color: var(--gold-dark); }
+
+        @media (max-width: 1024px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('images/hero-bg.jpg') center/cover no-repeat;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(27, 67, 50, 0.75) 0%,
+                rgba(26, 26, 26, 0.6) 100%
+            );
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 100px 20px 60px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 160, 23, 0.2);
+            border: 1px solid rgba(212, 160, 23, 0.4);
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 6px 18px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .hero h1 .gold { color: var(--gold); }
+        .hero p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            max-width: 600px;
+            margin: 0 auto 36px;
+        }
+        .btn-primary {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn-primary:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 80px 20px;
+        }
+        .section-dark {
+            background: var(--green-dark);
+            color: var(--white);
+        }
+        .section-cream { background: var(--cream); }
+        .section-gray { background: var(--gray-light); }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-label {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1.05rem;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+        .section-dark .section-subtitle { color: rgba(255, 255, 255, 0.75); }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        .about-text p {
+            margin-bottom: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+        .about-cert {
+            position: relative;
+            text-align: center;
+        }
+        .about-cert img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        /* ===== PRODUCTS ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .product-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 24px;
+        }
+        .product-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--green-dark);
+        }
+        .product-info p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        @media (max-width: 900px) {
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .products-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== ORGANIC ===== */
+        .organic-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            align-items: center;
+        }
+        .organic-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .organic-images img {
+            width: 100%;
+            border-radius: 12px;
+            aspect-ratio: 1;
+            object-fit: cover;
+        }
+        .organic-text p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        .organic-extras {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .organic-extras img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid rgba(212, 160, 23, 0.3);
+        }
+        @media (max-width: 768px) {
+            .organic-content { grid-template-columns: 1fr; }
+        }
+
+        /* ===== APIARIES CAROUSEL ===== */
+        .carousel-wrapper {
+            position: relative;
+            margin-top: 40px;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+        .carousel-slide img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background 0.2s;
+            z-index: 2;
+        }
+        .carousel-btn:hover { background: var(--white); }
+        .carousel-prev { left: 16px; }
+        .carousel-next { right: 16px; }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .carousel-dot.active { background: var(--gold); }
+
+        /* ===== PACKAGING ===== */
+        .packaging-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        .pack-card {
+            background: var(--white);
+            border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .pack-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+        }
+        .pack-icon {
+            font-size: 2.4rem;
+            margin-bottom: 16px;
+        }
+        .pack-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--green-dark);
+            margin-bottom: 8px;
+        }
+        .pack-card p {
+            font-size: 0.88rem;
+            color: var(--gray);
+        }
+        @media (max-width: 768px) {
+            .packaging-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .packaging-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 40px;
+        }
+        .gallery-item {
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(27, 67, 50, 0);
+            transition: background 0.3s;
+            border-radius: 12px;
+        }
+        .gallery-item:hover::after {
+            background: rgba(27, 67, 50, 0.2);
+        }
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.92);
+            align-items: center;
+            justify-content: center;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+        .lightbox-prev, .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.3); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        /* ===== CONTACTS ===== */
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        .form-group input,
+        .form-group textarea {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .btn-submit {
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            padding: 14px 32px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+            align-self: flex-start;
+        }
+        .btn-submit:hover { background: var(--gold-dark); }
+
+        .contact-info-block {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .contact-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .contact-item p, .contact-item a {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-decoration: none;
+        }
+        .contact-item a:hover { color: var(--gold-dark); }
+        .map-wrapper {
+            margin-top: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .map-wrapper iframe {
+            width: 100%;
+            height: 250px;
+            border: 0;
+        }
+        @media (max-width: 768px) {
+            .contacts-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 20px 30px;
+        }
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand p {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .footer-brand img {
+            height: 40px;
+        }
+        .footer h4 {
+            color: var(--white);
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            margin-bottom: 16px;
+        }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-links a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-contact p, .footer-contact a {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .footer-contact a:hover { color: var(--gold); }
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 40px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+
+        /* ===== LANG TOGGLE ===== */
+        [data-lang="en"] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-en [data-lang="bg"] { display: none; }
+        body.lang-en [data-lang-inline="en"] { display: inline; }
+        body.lang-en [data-lang-inline="bg"] { display: none; }
+        [data-lang-inline="en"] { display: none; }
+        [data-lang-inline="bg"] { display: inline; }
+
+        /* Flex containers that use lang */
+        body.lang-en [data-lang-flex="en"] { display: flex; }
+        body.lang-en [data-lang-flex="bg"] { display: none; }
+        [data-lang-flex="en"] { display: none; }
+        [data-lang-flex="bg"] { display: flex; }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="top">
+    <div class="header-inner">
+        <a href="#top" class="logo">
+            <img src="images/logo.png" alt="BG Quality Honey" width="45" height="45">
+            <span>BG Quality Honey</span>
+        </a>
+        <nav class="nav">
+            <ul class="nav-links">
+                <li><a href="#about"><span data-lang-inline="bg">За нас</span><span data-lang-inline="en">About</span></a></li>
+                <li><a href="#products"><span data-lang-inline="bg">Продукти</span><span data-lang-inline="en">Products</span></a></li>
+                <li><a href="#organic"><span data-lang-inline="bg">Органични</span><span data-lang-inline="en">Organic</span></a></li>
+                <li><a href="#apiaries"><span data-lang-inline="bg">Пчелини</span><span data-lang-inline="en">Apiaries</span></a></li>
+                <li><a href="#packaging"><span data-lang-inline="bg">Разфасовки</span><span data-lang-inline="en">Packages</span></a></li>
+                <li><a href="#gallery"><span data-lang-inline="bg">Галерия</span><span data-lang-inline="en">Gallery</span></a></li>
+                <li><a href="#contacts"><span data-lang-inline="bg">Контакти</span><span data-lang-inline="en">Contacts</span></a></li>
+            </ul>
+            <div class="lang-switch">
+                <button class="lang-btn active" data-lang-set="bg">BG</button>
+                <button class="lang-btn" data-lang-set="en">EN</button>
+            </div>
+            <button class="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="#about" class="mobile-link"><span data-lang-inline="bg">За нас</span><span data-lang-inline="en">About</span></a>
+    <a href="#products" class="mobile-link"><span data-lang-inline="bg">Продукти</span><span data-lang-inline="en">Products</span></a>
+    <a href="#organic" class="mobile-link"><span data-lang-inline="bg">Органични</span><span data-lang-inline="en">Organic</span></a>
+    <a href="#apiaries" class="mobile-link"><span data-lang-inline="bg">Пчелини</span><span data-lang-inline="en">Apiaries</span></a>
+    <a href="#packaging" class="mobile-link"><span data-lang-inline="bg">Разфасовки</span><span data-lang-inline="en">Packages</span></a>
+    <a href="#gallery" class="mobile-link"><span data-lang-inline="bg">Галерия</span><span data-lang-inline="en">Gallery</span></a>
+    <a href="#contacts" class="mobile-link"><span data-lang-inline="bg">Контакти</span><span data-lang-inline="en">Contacts</span></a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge" data-lang="bg">Водеща компания в износа на мед</div>
+        <div class="hero-badge" data-lang="en">Leading honey export company</div>
+        <h1 data-lang="bg">Пчелният мед е <span class="gold">безценен дар</span> на природата</h1>
+        <h1 data-lang="en">Honey is a <span class="gold">priceless gift</span> of nature</h1>
+        <p data-lang="bg">Компания за преработка и износ на пчелен мед и пчелни продукти. Собствена фабрика, отговаряща на всички европейски стандарти.</p>
+        <p data-lang="en">Company for processing and export of honey and bee products. Own factory meeting all European quality standards.</p>
+        <a href="#contacts" class="btn-primary">
+            <span data-lang-inline="bg">Свържете се с нас</span>
+            <span data-lang-inline="en">Contact us</span>
+        </a>
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="section" id="about">
+    <div class="container reveal">
+        <span class="section-label" data-lang="bg">За нас</span>
+        <span class="section-label" data-lang="en">About us</span>
+        <h2 class="section-title" data-lang="bg">За Компанията</h2>
+        <h2 class="section-title" data-lang="en">About the Company</h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <div data-lang="bg">
+                    <p>БГ КУОЛИТИ ХЪНИ ЕООД е с основна дейност - преработка и износ на пчелен мед и пчелни продукти.</p>
+                    <p>Екипа от професионалисти, който работи създава облика на динамично развиваща се и просперираща компания, успешно утвърдена, като водеща в износа на пчелен мед в България.</p>
+                    <p>БГ КУОЛИТИ ХЪНИ разполага със собствена фабрика отговаряща на всички Европейски стандарти за качество и контрол.</p>
+                    <p>Благодарение на дългогодишния си опит, компанията е добре позната и се ползва с отлична репутация в Европейски и международен мащаб.</p>
+                    <p>БГ КУОЛИТИ ХЪНИ има амбицията да разшири своите пазари, като предоставя възможността на бъдещите бизнес партниори да открият в нейно лице - коректност, отговорност и разбира се безкомпромисно качество!</p>
+                </div>
+                <div data-lang="en">
+                    <p>BG QUALITY HONEY Ltd. is a company for processing and export of honey and bee products.</p>
+                    <p>The team of professionals creates the image of a dynamically developing and prospering company, successfully established as a leader in honey export in Bulgaria.</p>
+                    <p>BG QUALITY HONEY has its own factory meeting all European quality and control standards.</p>
+                    <p>Thanks to its many years of experience, the company is well-known and has an excellent reputation on a European and international scale.</p>
+                    <p>BG QUALITY HONEY has the ambition to expand its markets, offering future business partners integrity, responsibility and, of course, uncompromising quality!</p>
+                </div>
+            </div>
+            <div class="about-cert">
+                <img src="images/misc/certificate.png" alt="Certificate" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="section section-cream" id="products">
+    <div class="container reveal">
+        <span class="section-label" data-lang="bg">Каталог</span>
+        <span class="section-label" data-lang="en">Catalogue</span>
+        <h2 class="section-title" data-lang="bg">Пчелни продукти</h2>
+        <h2 class="section-title" data-lang="en">Bee Products</h2>
+        <p class="section-subtitle" data-lang="bg">Пчелният мед е уникален природен продукт, познат още от дълбока древност. Той е окачествяван, като "безценен дар на природата". България е държавата, в която климата и природните дадености създават отлични условия за производство на пчелен мед.</p>
+        <p class="section-subtitle" data-lang="en">Honey is a unique natural product, known since ancient times. It has been described as a "priceless gift of nature". Bulgaria is the country where both climate and nature create excellent conditions for honey production.</p>
+
+        <div class="products-grid">
+            <!-- Linden -->
+            <div class="product-card">
+                <img src="images/products/linden-honey.png" alt="Linden Honey" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h3 data-lang="bg">Липов пчелен мед</h3>
+                    <h3 data-lang="en">Linden honey</h3>
+                    <p data-lang="bg">Липовият мед притежава силен и специфичен, но приятен аромат на цъфнала липа. Той е изключително богат на полезни вещества. Има тонизиращо действие върху храносмилателната система. Липовият мед се използва за лечение на остри катари на горните дихателни пътища (ларингити, трахеобронхити).</p>
+                    <p data-lang="en">Linden honey has a strong and distinct, but pleasant, aroma of linden blossom. It is incredibly rich in nutrients. It has a toning effect on the digestive system. Linden honey is used to treat acute catarrh of the upper respiratory tract (laryngitis, trachea bronchitis).</p>
+                </div>
+            </div>
+
+            <!-- Polyfloral -->
+            <div class="product-card">
+                <img src="images/products/polyfloral-honey.jpg" alt="Polyfloral Honey" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h3 data-lang="bg">Полифлорен мед</h3>
+                    <h3 data-lang="en">Polyfloral honey</h3>
+                    <p data-lang="bg">Безспорно най-разпространения мед, събиран от многобройните полски и планински растения. С изключителните си комплексни качества има подчертано лечебно и профилактично действие. Действа благоприятно върху дихателните пътища, стомашно-чревния тракт, гинекологични заболявания.</p>
+                    <p data-lang="en">Undoubtedly the most common honey, collected from numerous field and mountain plants. With its outstanding performance it has a strong therapeutic and preventive action. It shows a favourable effect on the respiratory tract, the gastrointestinal tract, and gynaecological diseases.</p>
+                </div>
+            </div>
+
+            <!-- Honeydew -->
+            <div class="product-card">
+                <img src="images/products/honeydew-honey.jpg" alt="Honeydew Honey" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h3 data-lang="bg">Мана пчелен мед</h3>
+                    <h3 data-lang="en">Honeydew honey</h3>
+                    <p data-lang="bg">Мановият мед е един от най-мощните източници на минерали. В него се съдържат голям брой аминокиселини, по-важни от които са: аспарагинова киселина, аланин, аргинин, цистин, глицин, глутаминова киселина. Също така калций, натрий, калий, магнезий и фосфор.</p>
+                    <p data-lang="en">Honeydew honey is one of the most powerful sources of minerals. It contains many amino acids, the most important of which are: aspartic acid, alanine, arginine, cysteine, glycine, glutamic acid, as well as calcium, sodium, potassium, magnesium and phosphorus.</p>
+                </div>
+            </div>
+
+            <!-- Acacia -->
+            <div class="product-card">
+                <img src="images/products/acacia-honey.jpg" alt="Acacia Honey" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h3 data-lang="bg">Акациев пчелен мед</h3>
+                    <h3 data-lang="en">Acacia honey</h3>
+                    <p data-lang="bg">Със специфичния си нежен аромат, много приятен вкус и бавното си кристализиране, акациевият мед е един от най-предпочитаните. Благодарение на ниското си съдържание на захароза е особено подходящ за диабетици, както и за малки деца. Има меко експекториращо действие.</p>
+                    <p data-lang="en">With its specific gentle aroma, very pleasant taste and its slow crystallization, acacia honey is one of the most popular honeys of all. Due to its low sucrose content it is particularly suitable for diabetics and young children. It has a soft expectorating action.</p>
+                </div>
+            </div>
+
+            <!-- Propolis -->
+            <div class="product-card">
+                <img src="images/products/propolis.png" alt="Propolis" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h3 data-lang="bg">Пчелен клей прополис</h3>
+                    <h3 data-lang="en">Bee propolis</h3>
+                    <p data-lang="bg">Редица проучвания показват полезните свойства на пчелния клей за здравето. Познат още като ПРОПОЛИС, той се отличава с антибактериални, противовирусни, антимикотични, противовъзпалителни, болкоуспокояващи, имуностимулиращи и противотуморни свойства. Прополисът съдържа почти всички минерали.</p>
+                    <p data-lang="en">Several studies have shown the beneficial properties of propolis for health. It features antibacterial, antiviral, antifungal, anti-inflammatory, analgesic, immune stimulatory and anti-tumour properties. Propolis contains almost all the minerals needed by the human body.</p>
+                </div>
+            </div>
+
+            <!-- Bee Pollen -->
+            <div class="product-card">
+                <img src="images/products/bee-pollen.png" alt="Bee Pollen" class="product-img" loading="lazy">
+                <div class="product-info">
+                    <h3 data-lang="bg">Пчелен прашец</h3>
+                    <h3 data-lang="en">Bee pollen</h3>
+                    <p data-lang="bg">Прашецът е източник на редица незаменими аминокиселини за човека, витамини и минерални вещества. Ежедневното приемане на 100 г прашец обезпечава дневните нужди на организма от: метионин, треонин, валин, левцин, фенилаланин, лизин, изолевцин и триптофан.</p>
+                    <p data-lang="en">Pollen is a source of several essential amino acids, vitamins and minerals. A daily intake of 100g of pollen provides the body's daily requirements of: methionine, threonine, valine, leucine, phenylalanine, lysine, isoleucine and tryptophan.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ORGANIC ===== -->
+<section class="section section-dark" id="organic">
+    <div class="container reveal">
+        <span class="section-label">
+            <span data-lang-inline="bg">Сертифицирани</span>
+            <span data-lang-inline="en">Certified</span>
+        </span>
+        <h2 class="section-title" data-lang="bg">Органични продукти</h2>
+        <h2 class="section-title" data-lang="en">Organic Products</h2>
+        <div class="organic-content">
+            <div class="organic-text">
+                <p data-lang="bg">Ние сме Органично Сертифицирана Компания, но също така работим с избрани от нас органично сертифицирани пчелари, които във времето са се доказали със своята безупречна работа и качество на продукта.</p>
+                <p data-lang="en">We are an Organically Certified Company, and we also work with selected organically certified beekeepers who have proven themselves over time with their impeccable work and product quality.</p>
+                <div class="organic-extras">
+                    <img src="images/organic/honey-frame.png" alt="Пчелна пита в дървена рамка" loading="lazy">
+                    <img src="images/organic/honeycomb.png" alt="Пчелна пита" loading="lazy">
+                </div>
+                <p style="margin-top: 16px; font-size: 0.9rem; opacity: 0.7;" data-lang="bg">Пчелна пита в дървена рамка &bull; Пчелна пита в малка разфасовка</p>
+                <p style="margin-top: 16px; font-size: 0.9rem; opacity: 0.7;" data-lang="en">Honeycomb in a wooden frame &bull; Honeycomb in a small package</p>
+            </div>
+            <div class="organic-images">
+                <img src="images/organic/organic-1.jpg" alt="Organic 1" loading="lazy">
+                <img src="images/organic/organic-2.jpg" alt="Organic 2" loading="lazy">
+                <img src="images/organic/organic-3.jpg" alt="Organic 3" loading="lazy">
+                <img src="images/organic/organic-4.jpg" alt="Organic 4" loading="lazy">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== APIARIES ===== -->
+<section class="section" id="apiaries">
+    <div class="container reveal">
+        <span class="section-label" data-lang="bg">1000 пчелни семейства</span>
+        <span class="section-label" data-lang="en">1000 bee colonies</span>
+        <h2 class="section-title" data-lang="bg">Нашите пчелини</h2>
+        <h2 class="section-title" data-lang="en">Our Apiaries</h2>
+        <p class="section-subtitle" data-lang="bg">БГ КУАЛИТИ ХЪНИ ЕООД има 1000 бр собствени пчелни семейства благодарение на които произвеждаме пчелен мед и пчелни продукти с неповторим вкус и гарантирано качество.</p>
+        <p class="section-subtitle" data-lang="en">BG QUALITY HONEY Ltd. has 1000 own bee colonies thanks to which we produce honey and bee products with unique taste and guaranteed quality.</p>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-slide"><img src="images/apiaries/apiary-1.jpg" alt="Apiary 1" loading="lazy"></div>
+                <div class="carousel-slide"><img src="images/apiaries/apiary-2.jpg" alt="Apiary 2" loading="lazy"></div>
+                <div class="carousel-slide"><img src="images/apiaries/apiary-3.jpg" alt="Apiary 3" loading="lazy"></div>
+                <div class="carousel-slide"><img src="images/apiaries/apiary-4.jpg" alt="Apiary 4" loading="lazy"></div>
+                <div class="carousel-slide"><img src="images/apiaries/apiary-5.jpg" alt="Apiary 5" loading="lazy"></div>
+                <div class="carousel-slide"><img src="images/apiaries/apiary-6.png" alt="Apiary 6" loading="lazy"></div>
+                <div class="carousel-slide"><img src="images/apiaries/apiary-7.png" alt="Apiary 7" loading="lazy"></div>
+            </div>
+            <button class="carousel-btn carousel-prev" onclick="moveCarousel(-1)">&#10094;</button>
+            <button class="carousel-btn carousel-next" onclick="moveCarousel(1)">&#10095;</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+</section>
+
+<!-- ===== PACKAGING ===== -->
+<section class="section section-cream" id="packaging">
+    <div class="container reveal">
+        <span class="section-label" data-lang="bg">Формати</span>
+        <span class="section-label" data-lang="en">Formats</span>
+        <h2 class="section-title" data-lang="bg">Разфасовки</h2>
+        <h2 class="section-title" data-lang="en">Packages</h2>
+
+        <div class="packaging-grid">
+            <div class="pack-card">
+                <div class="pack-icon">&#127793;</div>
+                <h3 data-lang="bg">Цветен прашец и Прополис</h3>
+                <h3 data-lang="en">Bee pollen and Propolis</h3>
+                <p data-lang="bg">Натурални пчелни продукти в удобни опаковки</p>
+                <p data-lang="en">Natural bee products in convenient packaging</p>
+            </div>
+            <div class="pack-card">
+                <div class="pack-icon">&#127855;</div>
+                <h3 data-lang="bg">Акациев и Липов мед</h3>
+                <h3 data-lang="en">Acacia and Linden honey</h3>
+                <p data-lang="bg">Премиум мед в стъклени буркани</p>
+                <p data-lang="en">Premium honey in glass jars</p>
+            </div>
+            <div class="pack-card">
+                <div class="pack-icon">&#127858;</div>
+                <h3 data-lang="bg">Манов и полифлорален мед</h3>
+                <h3 data-lang="en">Honeydew and Polyfloral honey</h3>
+                <p data-lang="bg">Разнообразие от вкусове и ползи</p>
+                <p data-lang="en">Variety of flavors and benefits</p>
+            </div>
+            <div class="pack-card">
+                <div class="pack-icon">&#129527;</div>
+                <h3 data-lang="bg">Пчелен восък и капсули мед</h3>
+                <h3 data-lang="en">Fresh honeycomb and honey capsules</h3>
+                <p data-lang="bg">Автентични пчелни продукти</p>
+                <p data-lang="en">Authentic bee products</p>
+            </div>
+            <div class="pack-card">
+                <div class="pack-icon">&#129704;</div>
+                <h3 data-lang="bg">Варели и кофи</h3>
+                <h3 data-lang="en">Large tins and plastic containers</h3>
+                <p data-lang="bg">Големи количества за B2B партньори</p>
+                <p data-lang="en">Large quantities for B2B partners</p>
+            </div>
+            <div class="pack-card">
+                <div class="pack-icon">&#127868;</div>
+                <h3 data-lang="bg">Тубички за деца и капсули за чай</h3>
+                <h3 data-lang="en">Honey tubes for kids and plastic sticks</h3>
+                <p data-lang="bg">Удобни порционни разфасовки</p>
+                <p data-lang="en">Convenient single-serve portions</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="section" id="gallery">
+    <div class="container reveal">
+        <span class="section-label" data-lang="bg">Моменти</span>
+        <span class="section-label" data-lang="en">Moments</span>
+        <h2 class="section-title" data-lang="bg">Галерия</h2>
+        <h2 class="section-title" data-lang="en">Gallery</h2>
+
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="openLightbox(0)"><img src="images/gallery/gallery-4.jpg" alt="Gallery 1" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(1)"><img src="images/gallery/gallery-5.jpg" alt="Gallery 2" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(2)"><img src="images/gallery/gallery-6.jpg" alt="Gallery 3" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(3)"><img src="images/gallery/gallery-8.jpg" alt="Gallery 4" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(4)"><img src="images/gallery/gallery-9.jpg" alt="Gallery 5" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(5)"><img src="images/gallery/gallery-10.jpg" alt="Gallery 6" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(6)"><img src="images/gallery/gallery-11.jpg" alt="Gallery 7" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(7)"><img src="images/gallery/gallery-12.jpg" alt="Gallery 8" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(8)"><img src="images/gallery/gallery-13.jpg" alt="Gallery 9" loading="lazy"></div>
+            <div class="gallery-item" onclick="openLightbox(9)"><img src="images/gallery/gallery-14.jpg" alt="Gallery 10" loading="lazy"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+    <button class="lightbox-prev" onclick="changeLightbox(-1)">&#10094;</button>
+    <img src="" alt="Gallery" id="lightboxImg">
+    <button class="lightbox-next" onclick="changeLightbox(1)">&#10095;</button>
+</div>
+
+<!-- ===== CONTACTS ===== -->
+<section class="section section-gray" id="contacts">
+    <div class="container reveal">
+        <span class="section-label" data-lang="bg">Пишете ни</span>
+        <span class="section-label" data-lang="en">Get in touch</span>
+        <h2 class="section-title" data-lang="bg">Контакти</h2>
+        <h2 class="section-title" data-lang="en">Contacts</h2>
+
+        <div class="contacts-grid">
+            <form class="contact-form" onsubmit="event.preventDefault(); alert(document.body.classList.contains('lang-en') ? 'Thank you! We will contact you soon.' : 'Благодарим! Ще се свържем с вас скоро.');">
+                <div class="form-group">
+                    <label data-lang="bg">Име</label>
+                    <label data-lang="en">Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label data-lang="bg">Телефон</label>
+                    <label data-lang="en">Phone</label>
+                    <input type="tel">
+                </div>
+                <div class="form-group">
+                    <label data-lang="bg">Съобщение</label>
+                    <label data-lang="en">Message</label>
+                    <textarea required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <span data-lang-inline="bg">Изпрати запитване</span>
+                    <span data-lang-inline="en">Send inquiry</span>
+                </button>
+            </form>
+
+            <div class="contact-info-block">
+                <div class="contact-item">
+                    <div class="contact-icon">&#128205;</div>
+                    <div>
+                        <h4 data-lang="bg">Адрес</h4>
+                        <h4 data-lang="en">Address</h4>
+                        <p data-lang="bg">България, Ловеч 5500, Северна индустриална зона</p>
+                        <p data-lang="en">Bulgaria, Lovech 5500, North Industrial Zone</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">&#128222;</div>
+                    <div>
+                        <h4 data-lang="bg">Телефон</h4>
+                        <h4 data-lang="en">Phone</h4>
+                        <a href="tel:+359877333022">0877 333 022</a>
+                        <a href="tel:+359878777030">0878 777 030</a>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">&#9993;</div>
+                    <div>
+                        <h4>Email</h4>
+                        <a href="mailto:bg.quality.honey.ltd@mail.bg">bg.quality.honey.ltd@mail.bg</a>
+                    </div>
+                </div>
+
+                <div class="map-wrapper">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2900.5!2d24.7167!3d43.1333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40ab2a5b3a5b3a5b%3A0x0!2z0JvQvtCy0LXRhywg0KHQtdCy0LXRgNC90LAg0LjQvdC00YPRgdGC0YDQuNCw0LvQvdCwINC30L7QvdCw!5e0!3m2!1sbg!2sbg!4v1700000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="BG Quality Honey Location"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <img src="images/logo.png" alt="BG Quality Honey" width="40" height="40">
+            <p data-lang="bg">Водеща компания в износа на пчелен мед в България. Собствена фабрика, 1000 пчелни семейства, органично сертифицирана.</p>
+            <p data-lang="en">Leading honey export company in Bulgaria. Own factory, 1000 bee colonies, organically certified.</p>
+        </div>
+        <div>
+            <h4 data-lang="bg">Навигация</h4>
+            <h4 data-lang="en">Navigation</h4>
+            <ul class="footer-links">
+                <li><a href="#about"><span data-lang-inline="bg">За нас</span><span data-lang-inline="en">About</span></a></li>
+                <li><a href="#products"><span data-lang-inline="bg">Продукти</span><span data-lang-inline="en">Products</span></a></li>
+                <li><a href="#organic"><span data-lang-inline="bg">Органични</span><span data-lang-inline="en">Organic</span></a></li>
+                <li><a href="#apiaries"><span data-lang-inline="bg">Пчелини</span><span data-lang-inline="en">Apiaries</span></a></li>
+                <li><a href="#gallery"><span data-lang-inline="bg">Галерия</span><span data-lang-inline="en">Gallery</span></a></li>
+                <li><a href="#contacts"><span data-lang-inline="bg">Контакти</span><span data-lang-inline="en">Contacts</span></a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4 data-lang="bg">Контакти</h4>
+            <h4 data-lang="en">Contacts</h4>
+            <p data-lang="bg">Ловеч 5500, Северна индустриална зона</p>
+            <p data-lang="en">Lovech 5500, North Industrial Zone</p>
+            <a href="tel:+359877333022">0877 333 022</a>
+            <a href="tel:+359878777030">0878 777 030</a>
+            <a href="mailto:bg.quality.honey.ltd@mail.bg">bg.quality.honey.ltd@mail.bg</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 BG Quality Honey. <span data-lang-inline="bg">Всички права запазени.</span><span data-lang-inline="en">All rights reserved.</span>
+    </div>
+</footer>
+
+<script>
+// ===== LANGUAGE SWITCH =====
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const lang = btn.dataset.langSet;
+        document.body.classList.toggle('lang-en', lang === 'en');
+        document.documentElement.lang = lang;
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    });
+});
+
+// ===== HAMBURGER MENU =====
+const hamburger = document.querySelector('.hamburger');
+const mobileNav = document.getElementById('mobileNav');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('open');
+    document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+
+document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+    });
+});
+
+// ===== STICKY HEADER SHADOW =====
+window.addEventListener('scroll', () => {
+    document.querySelector('.header').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ===== SCROLL REVEAL =====
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===== CAROUSEL =====
+let carouselIndex = 0;
+const track = document.getElementById('carouselTrack');
+const slides = track.querySelectorAll('.carousel-slide');
+const dotsContainer = document.getElementById('carouselDots');
+
+slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.onclick = () => goToSlide(i);
+    dotsContainer.appendChild(dot);
+});
+
+function goToSlide(i) {
+    carouselIndex = i;
+    track.style.transform = `translateX(-${i * 100}%)`;
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, j) => {
+        d.classList.toggle('active', j === i);
+    });
+}
+
+function moveCarousel(dir) {
+    let next = carouselIndex + dir;
+    if (next < 0) next = slides.length - 1;
+    if (next >= slides.length) next = 0;
+    goToSlide(next);
+}
+
+// Auto-advance carousel
+setInterval(() => moveCarousel(1), 5000);
+
+// ===== LIGHTBOX =====
+const galleryImages = [
+    'images/gallery/gallery-4.jpg',
+    'images/gallery/gallery-5.jpg',
+    'images/gallery/gallery-6.jpg',
+    'images/gallery/gallery-8.jpg',
+    'images/gallery/gallery-9.jpg',
+    'images/gallery/gallery-10.jpg',
+    'images/gallery/gallery-11.jpg',
+    'images/gallery/gallery-12.jpg',
+    'images/gallery/gallery-13.jpg',
+    'images/gallery/gallery-14.jpg'
+];
+let lightboxIndex = 0;
+
+function openLightbox(i) {
+    lightboxIndex = i;
+    document.getElementById('lightboxImg').src = galleryImages[i];
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+function changeLightbox(dir) {
+    lightboxIndex += dir;
+    if (lightboxIndex < 0) lightboxIndex = galleryImages.length - 1;
+    if (lightboxIndex >= galleryImages.length) lightboxIndex = 0;
+    document.getElementById('lightboxImg').src = galleryImages[lightboxIndex];
+}
+
+document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) closeLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') changeLightbox(-1);
+    if (e.key === 'ArrowRight') changeLightbox(1);
+});
+
+// Touch swipe for carousel
+let touchStartX = 0;
+track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) moveCarousel(diff > 0 ? 1 : -1);
+});
+</script>
+
+</body>
+</html>
